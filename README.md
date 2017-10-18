@@ -53,14 +53,20 @@ This sets up everything you need to get started writing an actual GUI. So let's 
     (define-widget main-window (QWidget)
       ())
 
-This `define-widget` form is syntactically equivalent to `defclass`. The only change is that the first argument in the superclass list is the Qt class to inherit from. Now we'll want to add some things to display in the widget.
+This `define-widget` form is syntactically equivalent to `defclass`. The only change is that the first argument in the superclass list is the Qt class to inherit from.
+
+The above is an example of widget subclassing.
+
+Now we'll want to add some things to display in the widget.
 
     (define-subwidget (main-window name) (q+:make-qlineedit main-window)
       (setf (q+:placeholder-text name) "Your name please."))
 
     (define-subwidget (main-window go) (q+:make-qpushbutton "Go!" main-window))
 
-This adds a QLineEdit widget called `name` to the `main-window` and sets its placeholder text to `"Your name please."`. The second form adds a button called `go` with a label of `"Go!"`. Simple stuff. The body of the `define-subwidget` form can contain any number of statements. By default, the symbols of all the other subwidgets and slots defined prior to the `define-subwidget` form are bound to their corresponding values. This is useful if you for example need to define a layout, as we will do now.
+This adds a QLineEdit widget called `name` to the `main-window` and sets its placeholder text to `"Your name please."`. The second form adds a button called `go` with a label of `"Go!"`. Simple stuff.
+
+The body of the `define-subwidget` form can contain any number of statements. By default, the symbols of all the other subwidgets and slots defined prior to the `define-subwidget` form are bound to their corresponding values. This is useful if you for example need to define a layout, as we will do now.
 
     (define-subwidget (main-window layout) (q+:make-qhboxlayout main-window)
       (q+:add-widget layout name)
